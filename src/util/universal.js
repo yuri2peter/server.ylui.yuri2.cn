@@ -27,3 +27,29 @@ export const isPromiseAlike = (subject) => {
 export const redirect = (path) => {
   storeRoot.router.routing.push(path);
 };
+
+/**
+ * 子路由path生成器
+ * @param {ReactDOM} parent
+ * @return {function(*): string} pathExtender
+ */
+export function pagePathExtender(parent) {
+  /**
+   * @param {string} path
+   * @return {string}
+   */
+  return (path) => {
+    return `${parent.props.match.url}/${path}`;
+  };
+}
+
+/**
+ * 基于当前href生成新的href，支持相对路径
+ * @param {string} path
+ * @return {string}
+ */
+export function hrefBuilder(path) {
+  const a = document.createElement('a');
+  a.href = path;
+  return a.href;
+}

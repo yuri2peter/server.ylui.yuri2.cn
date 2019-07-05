@@ -46,6 +46,7 @@
     "arrow-parens": 0,
     "no-console": 0,
     "import/no-dynamic-require": 0,
-    "react/destructuring-assignment": 0
+    "react/destructuring-assignment": 0,
+    "no-new": 0
   }
 }

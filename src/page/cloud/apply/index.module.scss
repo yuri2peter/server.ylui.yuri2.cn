@@ -1,0 +1,77 @@
+.input {
+  border: none;
+  outline: none;
+  font-size: 14px;
+  line-height: 26px;
+  border-bottom: 1px solid gray;
+}
+
+.submit {
+  margin-left: 1.5em;
+  background: #6b96cf;
+  border: none;
+  color: white;
+  font-size: 16px;
+  width: 4em;
+  cursor: pointer;
+  transition: all 0.3s;
+  &:hover {
+    background: #719eda;
+  }
+  &:disabled {
+    background: #bfbfbf;
+  }
+}
+
+.info {
+  min-width: 300px;
+  padding-top: 20px;
+  height: 100px;
+}
+
+.applying {
+  font-size: 14px;
+  color: gray;
+}
+
+.urlInputMaster, .urlInputShare {
+  font-size: 12px;
+  outline: none;
+  width: 310px;
+  color: gray;
+  border: 1px solid darkgrey;
+  padding: 2px 4px;
+}
+
+.copyShare, .copyMaster, .link {
+  font-size: 12px;
+  background: #6b96cf;
+  color: white;
+  line-height: 20px;
+  padding: 0 8px ;
+  display: inline-block;
+  border: none;
+  margin-left: .5em;
+  float: right;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.link {
+  background: #9a71cf;
+  text-decoration: none;
+}
+
+.title {
+  font-size: 12px;
+  margin-top: 0.5em;
+  margin-bottom: 0.2em;
+}
+
+.tips {
+  font-size: 14px;
+  margin-bottom: 0.2em;
+  color: darkolivegreen;
+}
