@@ -2,7 +2,7 @@ import { observable } from 'mobx';
 import YlApp from 'ylui-app';
 import axios from 'axios';
 import moment from 'moment';
-import { hrefBuilder } from '../../../util/universal';
+import { escapeSingleQuotes, hrefBuilder } from '../../../util/universal';
 import defines from '../../../common/defines';
 
 function openApply(data) {
@@ -62,7 +62,7 @@ class Model {
             sessionStorage.setItem(KEY_SYNC, idShare ? [id, idShare].join(',') : '');
             // reload
             this.loading = true;
-            YlApp.eval(YlApp.METHODS.EVAL, `document.title='${name}'`);
+            YlApp.eval(YlApp.METHODS.EVAL, `document.title='${escapeSingleQuotes(name)}'`);
             YlApp.eval(YlApp.METHODS.IMPORT, data);
           });
         }

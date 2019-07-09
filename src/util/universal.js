@@ -53,3 +53,8 @@ export function hrefBuilder(path) {
   a.href = path;
   return a.href;
 }
+
+export function escapeSingleQuotes(str) {
+  if (!str) return '';
+  return str.replace(/'/g, '\\\'');
+}
