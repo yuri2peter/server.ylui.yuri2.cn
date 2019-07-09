@@ -1,6 +1,9 @@
 import { observable } from 'mobx';
 import YlApp from 'ylui-app';
+import axios from 'axios';
+import moment from 'moment';
 import { hrefBuilder } from '../../../util/universal';
+import defines from '../../../common/defines';
 
 function openApply(data) {
   YlApp.eval(YlApp.METHODS.OPEN, {
@@ -29,7 +32,41 @@ class Model {
     YlApp.eval('eval', 'Yuri2.parseURL().params.id', (id) => {
       this.id = id;
       this.loading = false;
-      if (!id) {
+      if (id) {
+        const KEY_LOADING = 'ylui-cloud-loading';
+        const KEY_SYNC = 'ylui-cloud-sync-id';
+        if (sessionStorage.getItem(KEY_LOADING)) {
+          sessionStorage.removeItem(KEY_LOADING);
+          // 上传修改
+          const now = moment().toDate().toUTCString();
+          const syncKeys = (sessionStorage.getItem(KEY_SYNC) || '').split(',').filter(t => t);
+          sessionStorage.removeItem(KEY_SYNC);
+          YlApp.onEvent((data) => {
+            if (data.event === YlApp.EVENTS.DATA_CHANGED) {
+              YlApp.eval('eval', 'YL.export()', (newData) => {
+                this.loading = true;
+                const updates = syncKeys.map(updateId => axios.put(`${defines.CLOUD_API}/${updateId}`, {
+                  data: newData,
+                  _updated: now,
+                  _patch: true,
+                }));
+                Promise.all(updates).then(() => {
+                  this.loading = false;
+                });
+              });
+            }
+          });
+        } else {
+          axios.get(`${defines.CLOUD_API}/${id}`).then(({ data: { data: { data, idShare, name } } }) => {
+            sessionStorage.setItem(KEY_LOADING, 'true');
+            sessionStorage.setItem(KEY_SYNC, idShare ? [id, idShare].join(',') : '');
+            // reload
+            this.loading = true;
+            YlApp.eval(YlApp.METHODS.EVAL, `document.title='${name}'`);
+            YlApp.eval(YlApp.METHODS.IMPORT, data);
+          });
+        }
+      } else {
         YlApp.eval(YlApp.METHODS.EXPORT, null, (data) => {
           openApply(data);
         });

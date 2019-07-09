@@ -13,13 +13,13 @@ class Home extends Component {
   model = new Model();
 
   render() {
-    const { id } = this.model;
-    if (!id) {
+    const { id, loading } = this.model;
+    if (!id || !loading) {
       return null;
     }
     return (
       <span className={cssStyles.text}>
-        正在同步...
+        Syncing...
       </span>
     );
   }
