@@ -1,7 +1,5 @@
 module.exports = [
-  /**
   '/',
-  '/home',
-  '/about',
-   */
+  '/cloud',
+  '/cloud/apply',
 ];
