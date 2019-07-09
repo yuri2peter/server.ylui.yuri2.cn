@@ -45,6 +45,12 @@ function copyPublicFolder() {
   });
 }
 
+function copyExtra() {
+  fs.copySync(paths.appExtra, paths.appBuild, {
+    dereference: true,
+  });
+}
+
 
 // Create the production build and print the deployment instructions.
 function build(previousFileSizes) {
@@ -134,6 +140,7 @@ checkBrowsers(paths.appPath, isInteractive)
     fs.emptyDirSync(paths.appBuild);
     // Merge with the public folder
     copyPublicFolder();
+    copyExtra();
     // Start the webpack build
     return build(previousFileSizes);
   })
