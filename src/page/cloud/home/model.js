@@ -64,6 +64,8 @@ class Model {
             this.loading = true;
             YlApp.eval(YlApp.METHODS.EVAL, `document.title='${escapeSingleQuotes(name)}'`);
             YlApp.eval(YlApp.METHODS.IMPORT, data);
+          }).catch(() => {
+            window.alert('网络错误，请稍后再试');
           });
         }
       } else {
