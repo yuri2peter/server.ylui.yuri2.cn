@@ -33,8 +33,8 @@ class Model {
       this.id = id;
       this.loading = false;
       if (id) {
-        const KEY_LOADING = 'ylui-cloud-loading-' + id;
-        const KEY_SYNC = 'ylui-cloud-sync-id-' + id;
+        const KEY_LOADING = `ylui-cloud-loading-${ id}`;
+        const KEY_SYNC = `ylui-cloud-sync-id-${ id}`;
         if (sessionStorage.getItem(KEY_LOADING)) {
           sessionStorage.removeItem(KEY_LOADING);
           // 上传修改
